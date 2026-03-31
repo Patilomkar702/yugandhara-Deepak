@@ -145,6 +145,7 @@
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             -webkit-user-select: none;
+            overflow: hidden;
         }
         #entry-gate video {
             position: absolute;
@@ -154,6 +155,61 @@
             object-fit: cover;
         }
         #entry-gate.fade-out { opacity: 0; pointer-events: none; }
+
+        /* Dark cinematic overlay */
+        .entry-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.3), black);
+        }
+        /* Content container */
+        .entry-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            z-index: 2;
+        }
+
+        /* Logo */
+        .entry-content .logo img {
+            margin-right: 11rem;
+            margin-bottom: 5rem;
+            width: clamp(250px, 20vw, 160px);
+            filter: drop-shadow(0 0 15px gold);
+            animation: logoReveal 2s ease forwards;
+        }
+
+
+
+        .entry-content .revelText {
+             font-family: 'Great Vibes', cursive;
+            font-size: clamp(50px, 8vw, 60px);
+            margin-top: 15px;
+            margin-bottom: 2rem;
+            color: gold;
+            text-shadow: 0 0 15px gold;
+        }
+
+        /* Animations */
+        @keyframes logoReveal {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Fade out */
+        #entry-gate.fade-out {
+            opacity: 0;
+            transition: opacity 1s ease;
+            pointer-events: none;
+        }
 
         /* ============================================================
            AUDIO TOGGLE
@@ -1075,9 +1131,30 @@
 </button>
 
 <div id="entry-gate">
+
     <video id="entry-video" playsinline preload="auto" muted>
-        <source src="https://pub-1953a6673e864f3488c645252f75de98.r2.dev/Ashish %26 Ayushi/Entry Video Best Wedding Invite (22).mp4#t=0.001" type="video/mp4">
+        <source src="./backroundVideo.mp4" type="video/mp4">
     </video>
+
+    <!-- Overlay for cinematic dark effect -->
+    <div class="entry-overlay" id="entryOverlayContainer"></div>
+
+    <!-- Your Intro Content ON TOP -->
+    <div class="entry-content">
+
+        <span id="logoContainerRevel">
+             <div class="revelText">
+                Tap to revel
+            </div>
+        </span>
+        <span id="logoContainer" class="hidden">
+            <div class="logo">
+                <img src="./YD_Logo.png" alt="YD Logo">
+            </div>
+        </span>
+
+    </div>
+
 </div>
 
 <div id="main-content">
@@ -1470,8 +1547,15 @@ const canvas     = document.getElementById('petals-canvas');
 let audioPlaying = false;
 let mainRevealed = false;
 
+window.addEventListener("load", () => {
+    // wait a bit so everything loads smoothly
+    setTimeout(()=>{
+    },3000);
+});
+
 function revealMain() {
     if (mainRevealed) return;
+    scrollPageSlightDown();
     mainRevealed = true;
     gate.classList.add('fade-out');
     setTimeout(() => { gate.style.display = 'none'; }, 900);
@@ -1483,9 +1567,34 @@ function revealMain() {
     initEventAutoExpand();
 }
 
+function scrollPageSlightDown(){
+    setTimeout(() => {
+        // scroll slightly down
+        window.scrollTo({
+            top: 350, // adjust how much it goes down
+            behavior: "smooth"
+        });
+
+        // then scroll back up
+        setTimeout(() => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }, 1200); // delay before coming back (ms)
+
+    }, 800); // initial delay after load
+}
+
+
 gate.addEventListener('click', async (e) => {
     // setTimeout(revealMain, 100)
     if (mainRevealed) return;
+    setTimeout(()=>{
+        document.getElementById('logoContainerRevel').style.display = 'none';
+        document.getElementById('logoContainer').style.display = 'none';
+        document.getElementById('entryOverlayContainer').classList.remove("entry-overlay");
+    },1000)
     if (entryVideo.paused) {
         try {
             gate.classList.add('video-playing');
