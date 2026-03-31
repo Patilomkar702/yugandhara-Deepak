@@ -1287,7 +1287,7 @@
 
         <div class="venue-card reveal reveal-delay-2">
             <img class="venue-img"
-                 src="https://images.venuebookingz.com/22166-1686226011-wm-the-begning-sarajpur-road.jpg"
+                 src="https://raw.githubusercontent.com/Patilomkar702/yugandhara-Deepak/main/venue.jpg"
                  alt="Tivoli Lotus Court">
             <div class="venue-info text-center">
                 <h3 class="venue-name">Vedant Community hall (Khula Rangmanch)</h3>
@@ -1331,32 +1331,6 @@
             </div>
         </div>
         <div class="event-sep reveal"><div class="event-sep-line"></div><div class="event-sep-dot"></div><div class="event-sep-line"></div></div>
-
-        <!-- <div class="event-block reveal">
-            <div class="text-center mb-4">
-                <p class="event-subtitle">Ceremony II</p>
-                <h3 class="event-title">Parampara & Pratishtha</h3>
-            </div>
-            <div class="event-video-wrap">
-                <video autoplay muted loop playsinline>
-                    <source src="https://pub-1953a6673e864f3488c645252f75de98.r2.dev/Ashish %26 Ayushi/137.mp4" type="video/mp4">
-                </video>
-            </div>
-        </div>
-        <div class="event-sep reveal"><div class="event-sep-line"></div><div class="event-sep-dot"></div><div class="event-sep-line"></div></div> -->
-
-        <!-- <div class="event-block reveal">
-            <div class="text-center mb-4">
-                <p class="event-subtitle">Ceremony III · A Bollywood Musical Night</p>
-                <h3 class="event-title">Sitaron Wali Shaam</h3>
-            </div>
-            <div class="event-video-wrap">
-                <video autoplay muted loop playsinline>
-                    <source src="https://pub-1953a6673e864f3488c645252f75de98.r2.dev/Ashish %26 Ayushi/138.mp4" type="video/mp4">
-                </video>
-            </div>
-        </div>
-        <div class="event-sep reveal"><div class="event-sep-line"></div><div class="event-sep-dot"></div><div class="event-sep-line"></div></div> -->
 
         <div class="event-block reveal">
             <div class="text-center mb-4">
@@ -1404,7 +1378,7 @@
             <span class="section-label">Join the Celebration</span>
             <h2 class="section-heading" style="color:var(--terracotta)">Celebrate<br>With Us</h2>
             <p class="reveal reveal-delay-2 mt-4" style="font-style:italic;color:var(--text-light);font-size:1.1rem;margin-bottom:2.5rem;">
-                A few fun questions before the big day!
+                With your love and blessings, we've reached this beautiful milestone.
             </p>
         </div>
 
@@ -1464,8 +1438,7 @@
         </div>
         <br>
         <br>
-        <!-- <a href="https://www.instagram.com/invitevibes_/" target="_blank" class="insta-handle">
-  <i class="fab fa-instagram"></i> @invitevibes_ -->
+        
 </a>
         
        
@@ -1474,21 +1447,7 @@
 
 </div>
 
-<div id="rsvp-modal">
-    <div class="modal-card">
-        <div class="modal-icon-ring" id="modal-icon">
-            <svg id="modal-success-svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-            </svg>
-            <svg id="modal-error-svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;color:#dc2626">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-        </div>
-        <h3 class="modal-title" id="modal-title">Thank You!</h3>
-        <p class="modal-msg" id="modal-msg">We can't wait to celebrate with you!</p>
-        <button class="modal-close-btn" id="modal-close">Close</button>
-    </div>
-</div>
+
 
 <script>
 /* ================================================================
@@ -1722,87 +1681,8 @@ function initEventAutoExpand() {
     wraps.forEach(w => io.observe(w));
 }
 
-/* ================================================================
-   RSVP FORM
-================================================================ */
-const rsvpForm = document.getElementById('rsvp-form');
-const submitBtn = document.getElementById('submit-btn');
-const btnText   = document.getElementById('btn-text');
-const btnSpinner= document.getElementById('btn-spinner');
-const extraCards = ['guests-card', 'events-card', 'extra-cards', 'mood-card'];
 
-document.querySelectorAll('input[name="attending"]').forEach(r => {
-    r.addEventListener('change', () => {
-        const decline = r.value === 'no';
-        extraCards.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.style.opacity = decline ? '0.4' : '1';
-            if (el) el.style.pointerEvents = decline ? 'none' : '';
-        });
-    });
-});
-
-rsvpForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    submitBtn.disabled = true;
-    btnText.textContent = 'Sending...';
-    btnSpinner.style.display = 'inline';
-
-    const data = Object.fromEntries(new FormData(e.target).entries());
-    data.clientId = 'ashish-ayushi-wedding-2026';
-
-    try {
-        const res  = await fetch('https://wedding-backend-k67l.onrender.com/api/rsvp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-        const result = await res.json();
-        showModal(result.success ? 'success' : 'error');
-        if (result.success) e.target.reset();
-    } catch(err) {
-        console.error(err);
-        showModal('error');
-    } finally {
-        submitBtn.disabled = false;
-        btnText.textContent = 'Send Love';
-        btnSpinner.style.display = 'none';
-    }
-});
-
-/* ================================================================
-   MODAL
-================================================================ */
-const modal       = document.getElementById('rsvp-modal');
-const modalTitle  = document.getElementById('modal-title');
-const modalMsg    = document.getElementById('modal-msg');
-const modalSucc   = document.getElementById('modal-success-svg');
-const modalErr    = document.getElementById('modal-error-svg');
-const modalIcon   = document.getElementById('modal-icon');
-const modalClose  = document.getElementById('modal-close');
-
-function showModal(type) {
-    if (type === 'success') {
-        modalTitle.textContent = 'Thank You!';
-        modalMsg.textContent   = "We can't wait to celebrate with you on our special day!";
-        modalSucc.style.display = '';
-        modalErr.style.display  = 'none';
-        modalIcon.style.background = 'rgba(184,89,64,0.1)';
-    } else {
-        modalTitle.textContent = 'Oops!';
-        modalMsg.textContent   = 'There was an error submitting your RSVP. Please try again.';
-        modalSucc.style.display = 'none';
-        modalErr.style.display  = '';
-        modalIcon.style.background = 'rgba(220,38,38,0.08)';
-    }
-    modal.classList.add('open');
-}
-
-function closeModal() { modal.classList.remove('open'); }
-modalClose.addEventListener('click', closeModal);
-modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 </script>
 </body>
 
-<!-- Mirrored from ashish-and-ayushi.vercel.app/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 Mar 2026 14:13:18 GMT -->
 </html>
