@@ -178,7 +178,7 @@
         /* Logo */
         .entry-content .logo img {
             margin-right: 10rem;
-            margin-bottom: 5rem;
+            margin-top: 2rem;
             width: clamp(250px, 20vw, 160px);
             filter: drop-shadow(0 0 15px gold);
             animation: logoReveal 2s ease forwards;
@@ -1148,14 +1148,19 @@
     <!-- Your Intro Content ON TOP -->
     <div class="entry-content">
 
-        <span id="logoContainerRevel">
-             <div class="revelText">
-                Tap to revel
+        <span id="logoContainerRevel1">
+            <div class="revelText">
+                Tap To Reveal
             </div>
         </span>
         <span id="logoContainer" class="hidden">
             <div class="logo">
                 <img src="https://raw.githubusercontent.com/Patilomkar702/yugandhara-Deepak/main/YD_Logo.png" alt="YD Logo">
+            </div>
+        </span>
+         <span id="logoContainerRevel2">
+            <div class="revelText">
+                येथे क्लिक करा
             </div>
         </span>
 
@@ -1592,7 +1597,7 @@ function scrollPageSlightDown(){
                 top: 0,
                 behavior: "smooth"
             });
-        }, 1200); // delay before coming back (ms)
+        }, 2000); // delay before coming back (ms)
 
     }, 800); // initial delay after load
 }
@@ -1602,10 +1607,11 @@ gate.addEventListener('click', async (e) => {
     // setTimeout(revealMain, 100)
     if (mainRevealed) return;
     setTimeout(()=>{
-        document.getElementById('logoContainerRevel').style.display = 'none';
+        document.getElementById('logoContainerRevel1').style.display = 'none';
+        document.getElementById('logoContainerRevel2').style.display = 'none';
         document.getElementById('logoContainer').style.display = 'none';
         document.getElementById('entryOverlayContainer').classList.remove("entry-overlay");
-    },1000)
+    },1500)
     if (entryVideo.paused) {
         try {
             gate.classList.add('video-playing');
